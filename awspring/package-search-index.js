@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"se.WeatherForCast.awspring"},{"l":"se.WeatherForCast.awspring.configuration"}];updateSearchResults();
