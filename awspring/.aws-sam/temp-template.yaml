@@ -1,0 +1,14 @@
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 900
+      MemorySize: 10240
+      Handler: se.WeatherForCast.awspring.AccuWeatherHandler
+      CodeUri: C:\Users\AthmarMu\code\new\awspring
+      Runtime: java11
+      Architectures:
+        - arm64
+      Environment:
+        Variables:
+          FUNCTION_NAME:  getTextMessage

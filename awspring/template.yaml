@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  awspringfunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: 'se.WeatherForCast.awspring.AccuWeatherHandler::handleRequest'
+      Runtime: java11
+      CodeUri: .
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: >-
+        arn:aws:iam::844468946458:role/service-role/awspringfunction-role-j53ah1ph
+      Environment:
+        Variables:
+          MAIN_CLASS: se.WeatherForCast.awspring.AccuWeatherApplication
+
+
+#      RuntimePolicy:
+#        UpdateRuntimeOn: Auto
