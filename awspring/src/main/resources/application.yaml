@@ -5,7 +5,7 @@ spring:
       definition: getTextMessage
 weather:
   #  We need to renew ApiKey after several api call.
-  apikey: FZ3Orkuld6gzXQXrmpdoafqbEXwPVXY9
+  apikey: TrIS6126LXui7GsihZZNGAuGXyKlglLk
   base: http://dataservice.accuweather.com/
   search: locations/v1/search?q=
   daily: forecasts/v1/daily/1day/
