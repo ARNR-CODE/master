@@ -28,4 +28,6 @@ public class ApiConstants {
     public static final String Localized_Name="LocalizedName";
     public static final String DAILY_FORECASTS = "DailyForecasts";
 
+    public static final String COUNTRY = "Country";
+
 }

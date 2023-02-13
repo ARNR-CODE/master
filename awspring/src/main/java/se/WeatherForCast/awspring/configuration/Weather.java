@@ -23,6 +23,8 @@ public class Weather {
     private String daily;
     private String query;
 
+    private String country;
+
     public Weather() {
     }
 
@@ -66,6 +68,14 @@ public class Weather {
         this.query = query;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     @Override
     public String toString() {
         return "Weather{" +
@@ -74,6 +84,7 @@ public class Weather {
                 ",\n search='" + search + '\'' +
                 ",\n daily='" + daily + '\'' +
                 ",\n query='" + query + '\'' +
+                ",\n country='" + country + '\'' +
                 "}\n";
     }
 }

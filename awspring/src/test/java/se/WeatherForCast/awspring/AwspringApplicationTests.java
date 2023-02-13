@@ -12,11 +12,8 @@ import java.util.Map;
 
 @SpringBootTest
 class AwspringApplicationTests {
-
-
     @Autowired
     AppConfig appConfig;
-
     @Autowired
     Weather weather;
 
@@ -37,9 +34,4 @@ class AwspringApplicationTests {
         Assertions.assertNotNull(config);
     }
 
-//qwerty only for testing
-//    @Test
-//    public void testConsumer() {
-//        appConfig.consumer().accept("Sara");
-//    }
 }

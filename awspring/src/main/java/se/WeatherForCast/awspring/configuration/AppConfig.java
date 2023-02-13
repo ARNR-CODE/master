@@ -10,6 +10,13 @@ import se.WeatherForCast.awspring.service.WeatherServices;
 
 import java.util.Map;
 import java.util.function.Function;
+/**
+ * @author Athmar Mubark  <p>athmar.mubark@yahoo.com<p/>
+ * @version 1.0
+ * @since 23/01-25
+ * Application configuration
+ */
+
 @Configuration
 public class AppConfig {
  private final WeatherServices weatherServices;
@@ -33,8 +40,12 @@ public class AppConfig {
         return new ObjectMapper();
     }
 
+
+    /*This function will be run in AWS lambda and send output back to SNS service */
     @Bean
-    public Function<String,Map<String,String>> getTextMessage() {
+    public Function<String, Map<String, String>> getTextMessage() {
+        //We will do nothing with input string! because Request handler is
+        // only working with function not supplier interface!
         return (input) -> weatherServices.getWeatherToday();
     }
 }

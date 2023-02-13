@@ -43,10 +43,11 @@ public class  AccuweatherApi {
      * @param params  saving api key
      * @return location key
      */
-    private String getKey(Weather weather, HttpEntity<Object> entity, HashMap<String, String> params) throws JsonProcessingException {
+    private String getKey(Weather weather, HttpEntity<Object> entity, HashMap<String, String> params)
+            throws JsonProcessingException {
         String urlTemplate = uriTemplate(locationUri(weather));
         String json = getResponse(entity, urlTemplate, params).getBody();
-        return getKeyFromJson(json, weather.getQuery(), ApiConstants.KEY);
+        return getKeyFromJson(json, weather, ApiConstants.KEY);
     }
 
 
@@ -59,7 +60,8 @@ public class  AccuweatherApi {
      * @param params      saving api key
      * @return Represents an HTTP response entity, consisting of headers and body.
      */
-    private HttpEntity<String> getResponse(HttpEntity<Object> entity, String urlTemplate, HashMap<String, String> params) {
+    private HttpEntity<String> getResponse(HttpEntity<Object> entity, String urlTemplate, HashMap<String,
+            String> params) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(urlTemplate, HttpMethod.GET, entity, String.class, params);
     }
@@ -70,18 +72,20 @@ public class  AccuweatherApi {
      * <br>
      *
      * @param json  json data from the first api call
-     * @param value location name t.ex Stockhom or any other city
+     * @param weather location name t.ex Stockhom or any other city
      * @param key   required field name in json.
      * @return location key will be returned as a string.
      */
-    private String getKeyFromJson(String json, String value, String key) throws JsonProcessingException {
+    private String getKeyFromJson(String json, Weather weather, String key) throws JsonProcessingException {
         AtomicReference<Object> cache = new AtomicReference<>();
         JsonNode jsonNode = objectMapper.readTree(json);
         jsonNode.forEach(node -> {
-            JsonNode locatedNode = node.path(ApiConstants.ADMINISTRATIVE_AREA).path(ApiConstants.Localized_Name);
-            if (locatedNode.asText().equalsIgnoreCase(value)) {
+            JsonNode cityName = node.path(ApiConstants.ADMINISTRATIVE_AREA).path(ApiConstants.Localized_Name);
+            JsonNode countryName = node.path(ApiConstants.COUNTRY).path(ApiConstants.Localized_Name);
+            if (cityName.asText().equalsIgnoreCase(weather.getQuery())
+                    && countryName.asText().equalsIgnoreCase(weather.getCountry()))
                 cache.set(node.findValuesAsText(key));
-            }
+
         });
         if (cache.get() != null) return cache.get()
                 .toString()
@@ -135,15 +139,17 @@ public class  AccuweatherApi {
     //Adding api key authorization as a query params before sending request
     private HttpEntity<Object> getEnitiy() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", "application/json");
+        headers.set("accept", "application/json");
         return new HttpEntity<>(headers);
     }
 
 
     //Get final uri template
     private String uriTemplate(String url) {
-        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url).queryParam(ApiConstants.API_KEY, "{apikey}").encode().toUriString();
-        return urlTemplate;
+        return  UriComponentsBuilder
+                .fromHttpUrl(url)
+                .queryParam(ApiConstants.API_KEY, "{apikey}")
+                .encode().toUriString();
     }
 
 
@@ -156,7 +162,9 @@ public class  AccuweatherApi {
      * @param params  Adding required params before sending api request
      * @return String json data
      */
-    private  Map<String, String> getForcast(Weather weather, HttpEntity<Object> entity, HashMap<String, String> params) throws JsonProcessingException {
+    private  Map<String, String> getForcast(Weather weather,
+                                            HttpEntity<Object> entity,
+                                            HashMap<String, String> params) throws JsonProcessingException {
         String urlDailyCast = buildSimpleUri(weather.getBase(), weather.getDaily(), key);
         String response = getResponse(entity, uriTemplate(urlDailyCast), params).getBody();
         return buildTextMessage(weather, response);
@@ -177,13 +185,25 @@ public class  AccuweatherApi {
 
     private Map<String, String> putMessageInMap(Weather weather, String response) throws JsonProcessingException {
         Map<String, String> messages = new HashMap<>();
-        messages.put(ApiConstants.DATE, retrieveValueFromJson(response, ApiConstants.DAILY_FORECASTS, ApiConstants.DATE));
-        messages.put(ApiConstants.TEMPERATURE, retrieveValueFromJson(response, ApiConstants.DAILY_FORECASTS, ApiConstants.TEMPERATURE, ApiConstants.MINIMUM, ApiConstants.VALUE)
-                + " - " + retrieveValueFromJson(response, ApiConstants.DAILY_FORECASTS, ApiConstants.TEMPERATURE, ApiConstants.MAXIMUM, ApiConstants.VALUE)
-                + " " + retrieveValueFromJson(response, ApiConstants.DAILY_FORECASTS, ApiConstants.TEMPERATURE, ApiConstants.MINIMUM, ApiConstants.UNIT));
-        messages.put(ApiConstants.DAY, retrieveValueFromJson(response, ApiConstants.DAILY_FORECASTS, ApiConstants.DAY, ApiConstants.ICONPHRASE));
-        messages.put(ApiConstants.NIGHT, retrieveValueFromJson(response, ApiConstants.DAILY_FORECASTS, ApiConstants.DAY, ApiConstants.ICONPHRASE));
-        messages.put(ApiConstants.LOCATION, weather.getQuery());
+        //Date field
+        messages.put(ApiConstants.DATE, retrieveValueFromJson(response,
+                ApiConstants.DAILY_FORECASTS, ApiConstants.DATE));
+        //Temperature field t.ex min - max unit
+        messages.put(ApiConstants.TEMPERATURE, retrieveValueFromJson(response,
+                ApiConstants.DAILY_FORECASTS, ApiConstants.TEMPERATURE, ApiConstants.MINIMUM, ApiConstants.VALUE)
+                + " - " + retrieveValueFromJson(response,
+                ApiConstants.DAILY_FORECASTS, ApiConstants.TEMPERATURE, ApiConstants.MAXIMUM, ApiConstants.VALUE)
+                + " " + retrieveValueFromJson(response,
+                ApiConstants.DAILY_FORECASTS, ApiConstants.TEMPERATURE, ApiConstants.MINIMUM, ApiConstants.UNIT));
+
+        //Day forecast
+        messages.put(ApiConstants.DAY, retrieveValueFromJson(response,
+                ApiConstants.DAILY_FORECASTS, ApiConstants.DAY, ApiConstants.ICONPHRASE));
+        //Night forecast
+        messages.put(ApiConstants.NIGHT, retrieveValueFromJson(response,
+                ApiConstants.DAILY_FORECASTS, ApiConstants.DAY, ApiConstants.ICONPHRASE));
+        //city and country
+        messages.put(ApiConstants.LOCATION, weather.getQuery() + " ," + weather.getCountry());
         return messages;
     }
 

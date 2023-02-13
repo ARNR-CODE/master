@@ -4,11 +4,12 @@ spring:
     function:
       definition: getTextMessage
 weather:
-  #  apikey has an expired and need to be changed from AccuWeather Api in case stopp from working
-  apikey: IK2913YUMQUzFWXAdFkNhfkaxhio8b0A
+  #  We need to renew ApiKey after several api call.
+  apikey: FZ3Orkuld6gzXQXrmpdoafqbEXwPVXY9
   base: http://dataservice.accuweather.com/
   search: locations/v1/search?q=
   daily: forecasts/v1/daily/1day/
   query: stockholm
+  country: sweden
 
 

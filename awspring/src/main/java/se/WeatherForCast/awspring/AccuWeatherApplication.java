@@ -19,10 +19,7 @@ import java.util.function.Supplier;
 
 @SpringBootApplication
 public class AccuWeatherApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AccuWeatherApplication.class, args);
     }
-
-
 }

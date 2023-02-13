@@ -1,0 +1,1 @@
+{"Temperature":"15.0 - 15.0 F","Night":"Mostly cloudy","Day":"Mostly cloudy","Date":"2023-02-02T07:00:00+01:00","Location":"stockholm"}

@@ -1,5 +1,7 @@
 package se.WeatherForCast.awspring;
 
+import com.amazonaws.services.lambda.runtime.Context;
+import org.reactivestreams.Publisher;
 import org.springframework.cloud.function.adapter.aws.SpringBootRequestHandler;
 
 /**
@@ -15,5 +17,11 @@ import org.springframework.cloud.function.adapter.aws.SpringBootRequestHandler;
  */
 
 public class AccuWeatherHandler extends SpringBootRequestHandler<Object, Object> {
-
+    @Override
+    public Object handleRequest(Object event, Context context) {
+        /*I tried to use only supplier interface, but it doesn't work with SpringBootRequestHandler,
+        so I used Function and clear input string because it is not required*/
+        Object obj = super.handleRequest(new String(""), context);
+        return obj;
+    }
 }
