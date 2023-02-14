@@ -11,5 +11,3 @@ weather:
   daily: forecasts/v1/daily/1day/
   query: stockholm
   country: sweden
-
-

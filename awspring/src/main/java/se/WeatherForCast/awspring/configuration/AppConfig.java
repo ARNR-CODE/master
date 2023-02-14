@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 @Configuration
 public class AppConfig {
- private final WeatherServices weatherServices;
+    private final WeatherServices weatherServices;
 
     public AppConfig(WeatherServices weatherServices) {
         this.weatherServices = weatherServices;

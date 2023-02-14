@@ -28,4 +28,9 @@ public class ApiConstants {
     public static final String Localized_Name="LocalizedName";
     public static final String DAILY_FORECASTS = "DailyForecasts";
 
+    public static final String COUNTRY = "Country";
+
+    public static final String TOPIC_ARN = "arn:aws:sns:eu-north-1:844468946458:SNSTopic";
+    public static final String SUBJECT  = "Weather forecast today";
+
 }
