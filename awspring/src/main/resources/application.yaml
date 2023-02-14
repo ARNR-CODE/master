@@ -4,8 +4,8 @@ spring:
     function:
       definition: getTextMessage
 weather:
-  #  We need to renew ApiKey after several api call.
-  apikey: TrIS6126LXui7GsihZZNGAuGXyKlglLk
+  # In case we get 501 - authorization errors, we need to renew Apikey from AccuWeather api
+  apikey: vepGhGOGs61aphrJTBYmSEBAqePL9OnA
   base: http://dataservice.accuweather.com/
   search: locations/v1/search?q=
   daily: forecasts/v1/daily/1day/
