@@ -12,7 +12,7 @@ a serverless function and send it as a text message to all subscribers' emails o
 ## Requirments 
 
 * Java 11
-* New Api key from AccuWeather api [https://developer.accuweather.com/user/login?destination=user/me/apps&autologout_timeout=1]
+* New Api key from AccuWeather api [https://developer.accuweather.com/]
 * New AWS account
 
 ## Instruction
