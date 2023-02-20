@@ -1,11 +1,11 @@
-function.name: getTextMessage
-spring:
-  cloud:
-    function:
-      definition: getTextMessage
+#function.name: getTextMessage
+#spring:
+#  cloud:
+#    function:
+#      definition: getTextMessage
 weather:
   # In case we get 501 - authorization errors, we need to renew Apikey from AccuWeather api
-  apikey: vepGhGOGs61aphrJTBYmSEBAqePL9OnA
+  apikey: Yhg56o0uAlgS8RhAjiP6EQe1WByLMHDI
   base: http://dataservice.accuweather.com/
   search: locations/v1/search?q=
   daily: forecasts/v1/daily/1day/

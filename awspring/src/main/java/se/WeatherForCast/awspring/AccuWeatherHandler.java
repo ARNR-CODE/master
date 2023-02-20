@@ -24,7 +24,6 @@ public class AccuWeatherHandler extends SpringBootRequestHandler<Object, Object>
         /*I tried to use only supplier interface, but it doesn't work with SpringBootRequestHandler,
         so I used Function and clear input string because it is not required*/
         Object obj = super.handleRequest(new String(""), context);
-        System.out.println("This from object in handleRequest " + obj.toString());
         //Using SNS to send a messages to all subscriptions
         AmazonSNSClient snsClient = (AmazonSNSClient) AmazonSNSClientBuilder.standard().build();
         snsClient.publish(ApiConstants.TOPIC_ARN,obj.toString(),ApiConstants.SUBJECT);

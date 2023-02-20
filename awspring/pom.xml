@@ -31,11 +31,11 @@
 
 
         <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper</artifactId>
-            <version>9.0.68</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.tomcat</groupId>-->
+<!--            <artifactId>tomcat-jasper</artifactId>-->
+<!--            <version>9.0.68</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,19 +69,19 @@
             <version>1.1.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core -->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-core</artifactId>
-            <version>1.12.388</version>
-        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.amazonaws</groupId>-->
+<!--            <artifactId>aws-java-sdk-core</artifactId>-->
+<!--            <version>1.12.388</version>-->
+<!--        </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-lambda -->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-lambda</artifactId>
-            <version>1.12.388</version>
-        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-lambda &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.amazonaws</groupId>-->
+<!--            <artifactId>aws-java-sdk-lambda</artifactId>-->
+<!--            <version>1.12.388</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sns -->
         <dependency>
@@ -105,6 +105,13 @@
         </dependencies>
     </dependencyManagement>
 
+    <!--  Maven Shade Plugin
+      Shading is a process where a dependency is relocated to
+      a different Java package and copied into the same JAR
+      file as the code that relies on that dependency.
+      The main purpose of shading is to avoid conflicts between
+      the versions of dependencies used by a library and the
+      versions used by the consumers of that library.-->
     <build>
         <plugins>
             <plugin>

@@ -25,7 +25,7 @@ class AwspringApplicationTests {
     public void testTextMessage() {
         Map<String, String> weatherData = appConfig.getTextMessage().apply("");
         System.out.println(weatherData.entrySet());
-        Assertions.assertNotNull(weatherData.entrySet());
+        Assertions.assertFalse(weatherData.entrySet().isEmpty());
     }
 
     @Test
@@ -33,5 +33,4 @@ class AwspringApplicationTests {
         String config = weather.toString();
         Assertions.assertNotNull(config);
     }
-
 }
